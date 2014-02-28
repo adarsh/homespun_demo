@@ -13,6 +13,19 @@ Bundler.require(:default, Rails.env)
 
 module Homespun
   class Application < Rails::Application
+    #Spree-added config
+    config.to_prepare do
+      # Load application's model / class decorators
+      Dir.glob(File.join(File.dirname(__FILE__), "../app/**/*_decorator*.rb")) do |c|
+        Rails.configuration.cache_classes ? require(c) : load(c)
+      end
+
+      # Load application's view overrides
+      Dir.glob(File.join(File.dirname(__FILE__), "../app/overrides/*.rb")) do |c|
+        Rails.configuration.cache_classes ? require(c) : load(c)
+      end
+    end
+
     config.active_record.default_timezone = :utc
 
     config.generators do |generate|
