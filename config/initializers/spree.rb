@@ -6,6 +6,7 @@
 # be set here.
 
 Spree.config do |config|
+  config.set(logo: "ralph.png")
   # config.site_name = "Spree Demo Site"
 end
 
